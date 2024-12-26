@@ -5,13 +5,85 @@ import { useCallback } from 'react';
 
 
 function Movie({name,year,poster,type}){
+     
+  const img=[
+  'src/assets/bookmark-white.png',
+  'src/assets/bookmark.png',
+  ];
+
+
+
+  const [book,setBook] = useState(()=> isMarked(name));
+  const [bImage,setBImage]=useState(()=>{
+   return  img[isMarked(name)];
+  });
+
+  function addBookmark(name,year,type,poster){
+    setBImage(img[1]);
+    setBook(true);
+
+    let collection =  JSON.parse(localStorage.getItem('collection')) || [];
+
+    collection.push({
+      name,
+      year,
+      type,
+      poster
+    })
+
+    localStorage.setItem('collection',JSON.stringify(collection));
+    console.log(collection);
+
+  }
+  function removeBookmark(name){
+    setBImage(img[0]);
+    setBook(false);
+
+    let collection =  JSON.parse(localStorage.getItem('collection')) || [];
+    let  match;
+
+    collection.forEach((movie,index)=>{
+      if(name === movie.name){
+        match=index;
+      }
+    })
+
+    collection.splice(match,1);
+    localStorage.setItem('collection',JSON.stringify(collection));
+
+    console.log(collection);
+
+  }
+
+  function isMarked(mov){
+    let collection = JSON.parse(localStorage.getItem('collection')) || [];
+    let f=0;
+    collection.forEach(movie=>{
+      if(movie.name === mov )
+        f=1;
+    })
+    return (f===1)?1:0;
+  }
+
   return (
+
+
     <div className="movie-container">
   <div className="movie-image" >
     <img src={poster} alt="Movie Image" />
-  </div>
+  </div>  
+  
   <div className="movie-details">
-    <h2 className='movie-title'>{name}</h2>
+  
+      <div className='bookmarks'>   
+        <h2 className='movie-title'>{name}</h2>
+       <img src={bImage} className='book-icon' 
+       onClick={()=>{
+        (book)?removeBookmark(name):addBookmark(name,year,poster,type);
+       }}/>
+    </div>
+    
+    
     <p>Release Date : {year}</p>
     <p>Genre/Type : {type}</p>
     <p>Description : A captivating movie about suspense and thrill , A gripping tale of suspense and mystery, this movie takes you on a thrilling journey where nothing is as it seems. The story follows a group of strangers who find themselves entangled in a web of secrets, betrayal, and danger. As they uncover hidden truths, they must confront their darkest fears. With unexpected twists and heart-pounding action, the film keeps you on the edge of your seat until the very end. A cinematic masterpiece that blends suspense with emotional depth, leaving a lasting impact.</p>
@@ -108,9 +180,9 @@ function App() {
       
         {
           
-           movieDetails && !noResult && !loading && !error && (movieDetails.map(movie=>(
+           movieDetails && !noResult && !loading && !error && (movieDetails.map((movie,index)=>(
 
-          <Movie key={movie.name} name={movie.Title.toUpperCase()} year={movie.Year} poster={movie.Poster} type={movie.Type}/> )
+          <Movie key={index} name={movie.Title.toUpperCase()} year={movie.Year} poster={movie.Poster} type={movie.Type}/> )
         ))}
         <div className='defaults'>
         <h5>Designed by Suhail</h5>
