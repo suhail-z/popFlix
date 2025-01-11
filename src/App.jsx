@@ -27,8 +27,8 @@ function Movie({name,year,poster,type}){
     collection.push({
       name,
       year,
-      type,
-      poster
+      poster,
+      type
     })
 
     localStorage.setItem('collection',JSON.stringify(collection));
@@ -101,13 +101,20 @@ function App() {
   const [noResult,setNoResult] = useState(false);
   const [initial,setInitial]=useState(true);
   const [error,setError] = useState(false);
+  const [saved,setSaved] = useState(false);
+  
+  const funcSaved = ()=>{
+    setSaved(true);
+    setInitial(false);
+    setMovieDetails(null);
+  }
 
 
   const searchResult = useCallback(async()=>{
     
     if(search.trim() === '')
       setInitial(true);
-  
+      setSaved(false);
       setLoading(true);
   
       try{
@@ -149,17 +156,19 @@ function App() {
        }}
        onChange={e => setSearch(e.target.value)}/>
       <img src="./src/assets/search-icon.png" className='icon search-icon' onClick={searchResult} />
-      <span >About |</span>
+      
       <span onClick={e=>window.location.href='https://mail.google.com/mail/u/0/#inbox?compose=CllgCJTNqGCPmWDqdCFkjWTttqGSmdnPtLpcmwQRFgKFVvxVxWFvgbHZjkBlbPHKkHbZNwMfkkg'}> Contact |</span>
-      <span onClick={e=>{window.location.href='https://github.com/suhail-z'}}> github</span>
+      <span onClick={e=>{window.location.href='https://github.com/suhail-z'}}> github |</span><span onClick={funcSaved}>Saved</span>
       <br/>
     </div>
+
         { initial && !loading &&
           <div className='defaults'>
           <img className='icon' src="./src/assets/popcorn.png"  />
           <h2>Search for a Movie / Series </h2>
           </div>
         }
+
         {
           loading && (
             <div className='defaults'>
@@ -167,6 +176,12 @@ function App() {
             </div>
             
           )
+        }
+        {
+          saved && !initial &&
+          (JSON.parse(localStorage.getItem('collection')).map((movie,index)=>(
+
+            <Movie key={index} name={movie.name.toUpperCase()} year={movie.year} poster={movie.type} type={movie.poster}/> )))
         }
         {
           noResult  && !loading &&  !initial && (
