@@ -127,6 +127,7 @@ function App() {
         setLoading(false);
         setNoResult(false);
         setError(false);
+        setInitial(false);
       } else if(search !== ''){
         setNoResult(true);
         setLoading(false);
@@ -151,7 +152,7 @@ function App() {
        placeholder='Type here to search'
        value={search}
        onKeyDown={e=> {
-        e.target.value === 'Enter'
+        if(e.key === 'Enter')
         searchResult();
        }}
        onChange={e => setSearch(e.target.value)}/>
