@@ -6,18 +6,15 @@ body{
   font-family: 'Roboto Condensed',sans-serif;
 }
 .frame-container{
-  max-width: 1150px;
+  width: 1235px;
   align-items: center;
   justify-content: center;
   min-height:600px;
   height: fit-content;
-  margin: 40px;
-  margin-top: 10px;
   display: block;
-  width: 100vi;
   background-color:burlywood ;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 0px;
   box-shadow:vvv;
 }
 input{
@@ -25,12 +22,11 @@ input{
   height: 40px;
   color: white;
   outline: none;
-  border-radius: 20px;
-  padding-left: 10px;
   border: none;
-  margin-left: 30px;
   overflow: hidden;
   background-color: grey;
+  /* font-size: large;
+  font-weight: 400; */
 }
 input:hover{
   cursor: pointer;
@@ -46,8 +42,6 @@ max-height: 100px;
 .search-icon{
 max-width: 35px;
 max-height: 35px;
-position: relative;
-right: 50px;
 }
 
 .search-top {
@@ -156,7 +150,7 @@ h5{
 }
 span{
   color: light gainsboro;
-  
+  padding: 5px;
 }
 .bookmarks img{
   width:25px;
@@ -168,5 +162,49 @@ span{
   width: 100%;
   display: flex;
   justify-content: space-between;
+}
+
+.search{
+  max-width: 745px;
+  height:43px;
+  border:1.5px solid rgb(147, 147, 200);
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+  border-radius: 50px;
+  background-color: gray;
+  justify-content: center space-between;
+  align-items: center;
+ padding-left: 15px; 
+}
+#index{
+  gap: 1px;
+  justify-content: center;
+  display: flex;
+  font-size: large;
+  font-weight: 500;
+}
+#index img{
+  height: 25px;
+  width: 25px;
+  margin-top: 3px;
+}
+#index{
+  color: #bdc3c7;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 0.9rem;
+  color: white;
+}
+
+footer a {
+  color: #ff4e00;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 

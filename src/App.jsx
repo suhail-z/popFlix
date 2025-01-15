@@ -148,7 +148,8 @@ function App() {
     <div className='frame-container'>
     <div className='search-top'>
       <img src="./src/assets/movie-icon-removebg.png" className='icon' />
-      <input type="text"
+      <div className='search'>
+        <input type="text"
        placeholder='Type here to search'
        value={search}
        onKeyDown={e=> {
@@ -157,9 +158,13 @@ function App() {
        }}
        onChange={e => setSearch(e.target.value)}/>
       <img src="./src/assets/search-icon.png" className='icon search-icon' onClick={searchResult} />
+      </div>
       
-      <span onClick={e=>window.location.href='https://mail.google.com/mail/u/0/#inbox?compose=CllgCJTNqGCPmWDqdCFkjWTttqGSmdnPtLpcmwQRFgKFVvxVxWFvgbHZjkBlbPHKkHbZNwMfkkg'}> Contact |</span>
-      <span onClick={e=>{window.location.href='https://github.com/suhail-z'}}> github |</span><span onClick={funcSaved}>Saved</span>
+      <div id='index'onClick={funcSaved}>
+        <img src="src/assets/bookmark.png" alt="saved"  />
+        <span >Bookmarks</span>
+      </div>
+      
       <br/>
     </div>
 
@@ -200,10 +205,9 @@ function App() {
 
           <Movie key={index} name={movie.Title.toUpperCase()} year={movie.Year} poster={movie.Poster} type={movie.Type}/> )
         ))}
-        <div className='defaults'>
-        <h5>Designed by Suhail</h5>
-        </div>
-
+        <footer className='defaults'>
+            <p>&copy;  Movies API by OMDB | Designed by <a href="https://www.github.com/suhail-z" target="_blank" rel="noopener noreferrer">Suhail</a></p>
+        </footer>
 
     </div>
     
